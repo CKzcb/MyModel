@@ -62,6 +62,7 @@ class SingleLinkList:
         is_result = True
         tmp_head = self._head
         try:
+            # 创建新的节点，将节点插入到头部
             tmp_node = SingleNode(item)
             tmp_node.next = self._head
             self._head = tmp_node
@@ -81,10 +82,13 @@ class SingleLinkList:
         is_result = True
         last_node = None
         try:
+            # 创建新节点
             tmp_node = SingleNode(item)
+            # 链表为空直接插入到头部
             if self.is_empty():
                 self._head = tmp_node
             else:
+                # 循环遍历到最后一个节点
                 tmp_cur = self._head
                 last_node = tmp_cur
                 while tmp_cur.next != None:
@@ -110,21 +114,27 @@ class SingleLinkList:
         :return: is_result : 是否成功
         """
         is_result = True
+        # 插入头部
         if pos < 0:
             is_result = self.add(item)
+        # 尾部插入
         elif pos > (self.length() - 1):
             is_result = self.append(item)
+        # 中间插入
         else:
             pre_node = self._head
             flag_node = pre_node.next
             count = 0
             try:
+                # pre_node用来志向指定位置pos的前一个位置pos-1，初始从头结点开始移动到指定位置
                 tmp_node = SingleNode(item)
                 while count < (pos - 1):
                     count += 1
                     pre_node = pre_node.next
                     flag_node = pre_node.next
+                # 先将新节点的下一个指向插入位置的节点
                 tmp_node.next = pre_node.next
+                # 再把插入位置的前一个节点指向新的节点
                 pre_node.next = tmp_node
             except Exception as e:
                 print(e)
@@ -143,13 +153,17 @@ class SingleLinkList:
         tmp_cur = self._head
         tmp_pre = None
         while tmp_cur != None:
+            # 找到节点元素
             if tmp_cur.item == item:
+                # 如果是第一个元素直接把头元素指向下一个元素
                 if not tmp_pre:
                     self._head = tmp_cur.next
+                # 如果不是第一个元素将前一节点直接指向当前节点的下一节点
                 else:
                     tmp_pre.next = tmp_cur.next
                 break
             else:
+                # 没有找到删除元素循环遍历
                 tmp_pre = tmp_cur
                 tmp_cur = tmp_cur.next
         else:

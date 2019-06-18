@@ -58,10 +58,13 @@ class DoubLinkList:
         """
         is_result = True
         tmp_node = Node(item)
+        # 如果是空链表，将_head指向node
         if self.is_empty():
             self._head = tmp_node
         else:
+            # 将新节点指向头结点
             tmp_node.next = self._head
+            # 将头结点的前指针指向新节点
             self._head.prev = tmp_node
             self._head = tmp_node
         return is_result
@@ -74,13 +77,17 @@ class DoubLinkList:
         """
         is_result = True
         tmp_node = Node(item)
+        # 为空则直接加入新节点
         if self.is_empty():
             self._head = tmp_node
         else:
+            # 循环遍历到最后一个节点
             tmp_cur = self._head
             while tmp_cur.next != None:
                 tmp_cur = tmp_cur.next
+            # 当前节点指向新节点
             tmp_cur.next = tmp_node
+            # 新节点前指针指向当前节点
             tmp_node.prev = tmp_cur
         return is_result
 
@@ -132,9 +139,11 @@ class DoubLinkList:
         :return: is_result : 是否删除成功
         """
         is_result = False
+        # 为空则删除失败
         if self.is_empty():
             return is_result
         tmp_cur = self._head
+        # 第一个节点为要删除的元素
         if tmp_cur.item == item:
             if tmp_cur.next == None:
                 self._head = None
@@ -143,6 +152,7 @@ class DoubLinkList:
                 self._head = tmp_cur.next
             return is_result
         while tmp_cur != None:
+            # 找到要删除的元素，把指针断开
             if tmp_cur.item == item:
                 tmp_cur.prev.next = tmp_cur.next
                 tmp_cur.next.prev = tmp_cur.prev

@@ -78,8 +78,10 @@ class SignalCycLinkList:
         if not self.__add_first(node):
             flag_node = self._head
             try:
+                # 添加的节点指向头部节点
                 node.next = self._head
                 tmp_cur = self._head
+                # 循环遍历到尾部节点，将尾部节点的下一个指向为新的节点
                 while tmp_cur.next != self._head:
                     tmp_cur = tmp_cur.next
                 tmp_cur.next = node
@@ -103,9 +105,12 @@ class SignalCycLinkList:
         node = Node(item)
         if not self.__add_first(node):
             tmp_cur = self._head
+            # 循环遍历到最后一个节点
             while tmp_cur.next != self._head:
                 tmp_cur = tmp_cur.next
+            # 最后一个节点指向新节点
             tmp_cur.next = node
+            # 新节点指向头结点
             node.next = self._head
         return is_result
 
@@ -125,6 +130,7 @@ class SignalCycLinkList:
             node = Node(item)
             tmp_cur = self._head
             count = 0
+            # 移动到指定位置的前一个位置
             while count < (pos - 1):
                 count += 1
                 tmp_cur = tmp_cur.next
@@ -139,13 +145,18 @@ class SignalCycLinkList:
         :return:
         """
         is_result = True
+        # 为空直接返回
         if self.is_empty():
             return False
         tmp_cur = self._head
+        # 若头结点是查找的元素
         if tmp_cur.item == item:
+            # 如果链表只有一个节点则直接头结点为空
             if tmp_cur.next != self._head:
+                # 链表不止一个节点需要设置第二个节点为头结点
                 while tmp_cur.next != self._head:
                     tmp_cur = tmp_cur.next
+                # 尾节点指向头结点
                 tmp_cur.next = self._head.next
                 self._head = self._head.next
             else:
@@ -153,7 +164,9 @@ class SignalCycLinkList:
             return is_result
         else:
             pre = self._head
+            # 循环遍历到找到要删除的节点
             while tmp_cur.next != self._head:
+                # 找到要删除的节点，上一节点指向当前节点的下一节点
                 if tmp_cur.item == item:
                     pre.next = tmp_cur.next
                     return is_result
